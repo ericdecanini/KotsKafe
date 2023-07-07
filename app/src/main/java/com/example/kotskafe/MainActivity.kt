@@ -23,6 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotskafe.ui.theme.KotsKafeTheme
 
+val availableCoffees = listOf(
+    Coffee("Americano", 3.10),
+    Coffee("Latte", 4.25),
+    Coffee("Cappuccino", 4.25),
+    Coffee("Espresso", 2.10),
+    Coffee("Flat white", 3.80),
+)
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,22 +52,22 @@ fun HomeContent() {
         Text(modifier = Modifier.padding(16.dp), text = "Coffees", fontSize = 24.sp, fontWeight = FontWeight.Medium)
 
         Divider(modifier = Modifier.padding(top = 16.dp))
-        for (i in 0 until 5) {
-            CoffeeItem()
+        for (coffee in availableCoffees) {
+            CoffeeItem(coffee)
         }
     }
 }
 
 @Composable
-fun CoffeeItem() {
+fun CoffeeItem(coffee: Coffee) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = "Cappuccino")
-        Text(text = "$3.95")
+        Text(text = coffee.name)
+        Text(text = String.format("%.2f", coffee.price))
     }
     Divider()
 }
