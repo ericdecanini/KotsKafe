@@ -1,9 +1,11 @@
 package com.example.kotskafe
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,10 +63,16 @@ fun HomeContent() {
 
 @Composable
 fun CoffeeItem(coffee: Coffee) {
+    val context = LocalContext.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable {
+                cart.add(coffee)
+                Toast.makeText(context, "${coffee.name} added to cart", Toast.LENGTH_SHORT).show()
+            },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = coffee.name)
