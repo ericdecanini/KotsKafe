@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.kotskafe
 
 import android.os.Bundle
@@ -13,10 +15,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -52,6 +60,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeContent() {
     Column {
+        TopAppBar(
+            title = { Text(text = "Kot's Kafe") },
+            actions = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
+                }
+            }
+        )
+
         Image(painter = painterResource(id = R.drawable.coffee), contentDescription = null)
         Text(modifier = Modifier.padding(16.dp), text = "Coffees", fontSize = 24.sp, fontWeight = FontWeight.Medium)
 
@@ -72,7 +89,9 @@ fun CoffeeItem(coffee: Coffee) {
             .padding(16.dp)
             .clickable {
                 cart.add(coffee)
-                Toast.makeText(context, "${coffee.name} added to cart", Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(context, "${coffee.name} added to cart", Toast.LENGTH_SHORT)
+                    .show()
                 Log.v("MainActivity", "Cart: $cart")
             },
         horizontalArrangement = Arrangement.SpaceBetween
