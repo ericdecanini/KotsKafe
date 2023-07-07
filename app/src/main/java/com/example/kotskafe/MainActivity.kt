@@ -4,9 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,7 +42,26 @@ fun HomeContent() {
     Column {
         Image(painter = painterResource(id = R.drawable.coffee), contentDescription = null)
         Text(modifier = Modifier.padding(16.dp), text = "Coffees", fontSize = 24.sp, fontWeight = FontWeight.Medium)
+
+        Divider(modifier = Modifier.padding(top = 16.dp))
+        for (i in 0 until 5) {
+            CoffeeItem()
+        }
     }
+}
+
+@Composable
+fun CoffeeItem() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = "Cappuccino")
+        Text(text = "$3.95")
+    }
+    Divider()
 }
 
 @Preview(showBackground = true)
