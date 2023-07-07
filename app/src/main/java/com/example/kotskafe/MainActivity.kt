@@ -1,6 +1,7 @@
 package com.example.kotskafe
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -72,6 +73,7 @@ fun CoffeeItem(coffee: Coffee) {
             .clickable {
                 cart.add(coffee)
                 Toast.makeText(context, "${coffee.name} added to cart", Toast.LENGTH_SHORT).show()
+                Log.v("MainActivity", "Cart: $cart")
             },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
