@@ -33,15 +33,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.kotskafe.ui.theme.KotsKafeTheme
-
-val availableCoffees = listOf(
-    Coffee("Americano", 3.10),
-    Coffee("Latte", 4.25),
-    Coffee("Cappuccino", 4.25),
-    Coffee("Espresso", 2.10),
-    Coffee("Flat white", 3.80),
-)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,62 +45,16 @@ class MainActivity : ComponentActivity() {
             KotsKafeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    HomeContent()
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                    ) {
+                        composable("home") { HomeContent(navController) }
+                        composable("cart") { CartContent() }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun HomeContent() {
-    Column {
-        TopAppBar(
-            title = { Text(text = "Kot's Kafe") },
-            actions = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
-                }
-            }
-        )
-
-        Image(painter = painterResource(id = R.drawable.coffee), contentDescription = null)
-        Text(modifier = Modifier.padding(16.dp), text = "Coffees", fontSize = 24.sp, fontWeight = FontWeight.Medium)
-
-        Divider(modifier = Modifier.padding(top = 16.dp))
-        for (coffee in availableCoffees) {
-            CoffeeItem(coffee)
-        }
-    }
-}
-
-@Composable
-fun CoffeeItem(coffee: Coffee) {
-    val context = LocalContext.current
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .clickable {
-                cart.add(coffee)
-                Toast
-                    .makeText(context, "${coffee.name} added to cart", Toast.LENGTH_SHORT)
-                    .show()
-                Log.v("MainActivity", "Cart: $cart")
-            },
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(text = coffee.name)
-        Text(text = String.format("%.2f", coffee.price))
-    }
-    Divider()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KotsKafeTheme {
-        HomeContent()
     }
 }
