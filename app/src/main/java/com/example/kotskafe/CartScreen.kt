@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CartContent() {
+    val totalPrice = cart.sumOf { it.price }
+
     Column {
         TopAppBar(
             title = { Text(text = "Cart") },
@@ -27,6 +29,11 @@ fun CartContent() {
         for (coffee in cart) {
             CartItem(coffee = coffee)
         }
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = "Total: $" + String.format("%.2f", totalPrice),
+            fontWeight = FontWeight.Medium
+        )
     }
 }
 
