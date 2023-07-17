@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = "home",
                     ) {
                         composable("home") { HomeContent(navController) }
-                        composable("cart") { CartContent() }
+                        composable("cart") { CartContent(navController) }
                     }
                 }
             }
