@@ -1,3 +1,5 @@
 package com.example.kotskafe
 
-val cart = mutableListOf<Coffee>()
+import androidx.compose.runtime.mutableStateListOf
+
+val cart = mutableStateListOf<Coffee>()
